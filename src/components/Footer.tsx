@@ -18,31 +18,27 @@ import {
   TIKTOK_HANDLE,
   PARENT_BRAND_URL,
 } from "@/data/products";
+import { IshamiAccentsLogo } from "./IshamiAccentsLogo";
 
 export function Footer() {
   return (
-    <footer className="bg-[#1E1B18] text-[#FAF7F2] pt-14 pb-24 sm:pb-16 border-t border-black/40">
+    <footer className="bg-[#1B3B2B] text-[#FAF7F2] pt-16 pb-24 sm:pb-16 border-t border-black/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Brand Manifesto */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-3xl font-bold tracking-tight text-white">
-                ISHAMI ACCENTS
-              </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#C86D51] text-white">
-                Retail
-              </span>
-            </div>
+          {/* Brand Emblem & Manifesto */}
+          <div className="lg:col-span-5 space-y-6">
+            <Link href="/" className="inline-block">
+              <IshamiAccentsLogo variant="light" layout="stacked" showSubtitle={true} />
+            </Link>
 
-            <p className="text-xs text-[#FAF7F2]/75 leading-relaxed max-w-sm">
+            <p className="text-xs text-[#FAF7F2]/80 leading-relaxed max-w-sm font-light">
               Thoughtfully curated retail home decor, tactile textiles, and smart organization
               pieces based in Kigali, Rwanda. Designed for warm, modern living spaces and seamless
               WhatsApp ordering.
             </p>
 
             {/* Sister Brand Reference */}
-            <div className="p-3.5 rounded-2xl bg-[#FAF7F2]/5 border border-white/10 space-y-1.5 max-w-sm">
+            <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2 max-w-sm">
               <div className="flex items-center justify-between text-xs font-semibold text-[#FAF7F2]">
                 <span className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-[#C86D51]" />
@@ -52,15 +48,15 @@ export function Footer() {
                   href={PARENT_BRAND_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-400 hover:underline flex items-center gap-1 text-[11px]"
+                  className="text-white hover:text-[#C86D51] underline underline-offset-4 flex items-center gap-1 text-[11px] font-bold"
                 >
                   <span>Ishami Design Ltd</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </a>
               </div>
-              <p className="text-[11px] text-[#FAF7F2]/60 leading-normal">
-                Looking for corporate interior architecture, 3D renderings, or custom millwork? Visit
-                our sister portfolio site.
+              <p className="text-[11px] text-[#FAF7F2]/70 leading-normal font-light">
+                Looking for corporate interior architecture, 3D renderings, custom millwork, or
+                turnkey fit-outs? Visit our parent portfolio site.
               </p>
             </div>
           </div>
@@ -72,10 +68,10 @@ export function Footer() {
               <span>Weekly Dispatch Schedule</span>
             </h4>
 
-            <div className="rounded-2xl bg-[#FAF7F2]/5 border border-white/10 p-3.5 space-y-2 text-xs">
-              <div className="flex justify-between items-center text-emerald-400 font-medium">
+            <div className="rounded-2xl bg-white/10 border border-white/15 p-4 space-y-2.5 text-xs">
+              <div className="flex justify-between items-center text-emerald-300 font-medium">
                 <span>Monday & Tuesday</span>
-                <span className="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/60 text-[11px]">
+                <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-700/60 text-[11px]">
                   08:30 – 17:30 (Active)
                 </span>
               </div>
@@ -83,9 +79,9 @@ export function Footer() {
                 <span>Wednesday & Thursday</span>
                 <span className="text-[11px] italic">Closed (Restock & Prep)</span>
               </div>
-              <div className="flex justify-between items-center text-emerald-400 font-medium">
+              <div className="flex justify-between items-center text-emerald-300 font-medium">
                 <span>Friday & Saturday</span>
-                <span className="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/60 text-[11px]">
+                <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-700/60 text-[11px]">
                   08:30 – 18:00 (Active)
                 </span>
               </div>
@@ -95,7 +91,7 @@ export function Footer() {
               </div>
             </div>
 
-            <p className="text-[11px] text-[#FAF7F2]/60 flex items-center gap-1.5">
+            <p className="text-[11px] text-[#FAF7F2]/75 flex items-center gap-1.5 pt-1">
               <Truck className="w-3.5 h-3.5 text-[#C86D51]" />
               <span>All orders delivered within 4 operating days across Kigali.</span>
             </p>
@@ -107,7 +103,7 @@ export function Footer() {
               Connect & Shop
             </h4>
 
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-3 text-xs">
               <li>
                 <a
                   href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(
@@ -115,7 +111,7 @@ export function Footer() {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/80 hover:text-emerald-400 transition-colors"
+                  className="flex items-center gap-2 text-white/85 hover:text-[#C86D51] transition-colors"
                 >
                   <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>WhatsApp: {WHATSAPP_DISPLAY_PHONE}</span>
@@ -127,7 +123,7 @@ export function Footer() {
                   href={`https://instagram.com/${INSTAGRAM_HANDLE.replace("@", "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/80 hover:text-[#C86D51] transition-colors"
+                  className="flex items-center gap-2 text-white/85 hover:text-[#C86D51] transition-colors"
                 >
                   <svg
                     className="w-4 h-4 text-[#C86D51] shrink-0 fill-current"
@@ -145,17 +141,17 @@ export function Footer() {
                   href={`https://tiktok.com/@${TIKTOK_HANDLE.replace("@", "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/80 hover:text-[#C86D51] transition-colors"
+                  className="flex items-center gap-2 text-white/85 hover:text-[#C86D51] transition-colors"
                 >
-                  <span className="w-4 h-4 rounded-full bg-white text-black font-bold text-[9px] flex items-center justify-center shrink-0">
+                  <span className="w-4 h-4 rounded-full bg-white text-[#1B3B2B] font-bold text-[9px] flex items-center justify-center shrink-0">
                     TT
                   </span>
                   <span>TikTok: {TIKTOK_HANDLE}</span>
                 </a>
               </li>
 
-              <li className="flex items-center gap-2 text-white/70 pt-2">
-                <MapPin className="w-4 h-4 text-[#4A5D4E] shrink-0" />
+              <li className="flex items-center gap-2 text-white/75 pt-1">
+                <MapPin className="w-4 h-4 text-[#C86D51] shrink-0" />
                 <span>Kigali, Rwanda (Delivery Citywide)</span>
               </li>
             </ul>
@@ -163,10 +159,10 @@ export function Footer() {
         </div>
 
         {/* Bottom Copyright & Craftsmanship */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#FAF7F2]/60">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#FAF7F2]/70 font-light">
           <p>© 2026 Ishami Accents. All rights reserved.</p>
 
-          <p className="flex items-center gap-1">
+          <p className="flex items-center gap-1.5">
             <span>Sister brand to</span>
             <a
               href={PARENT_BRAND_URL}
@@ -179,12 +175,12 @@ export function Footer() {
           </p>
 
           <p className="flex items-center gap-1 text-[11px]">
-            <span>Crafted with</span>
+            <span>Crafted for modern Kigali living</span>
             <Heart className="w-3 h-3 text-[#C86D51] fill-current" />
-            <span>for modern Kigali living</span>
           </p>
         </div>
       </div>
     </footer>
   );
 }
+export default Footer;

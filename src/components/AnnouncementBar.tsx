@@ -12,20 +12,20 @@ export function AnnouncementBar() {
   return (
     <aside
       aria-label="Delivery Schedule Announcement"
-      className="sticky top-0 z-40 bg-[#1E1B18] text-[#FAF7F2] text-xs py-2 px-3 sm:px-6 transition-all border-b border-black/20"
+      className="relative z-40 bg-[#1B3B2B] text-[#FAF7F2] text-xs py-2.5 px-3 sm:px-6 transition-all border-b border-black/20"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
         {/* Left: Dispatch Notice */}
-        <div className="flex-1 flex items-center justify-center sm:justify-start gap-2 text-center sm:text-left flex-wrap sm:flex-nowrap">
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#C86D51] text-white font-semibold text-[10px] tracking-wider uppercase">
+        <div className="flex-1 flex items-center justify-center sm:justify-start gap-2.5 text-center sm:text-left flex-wrap sm:flex-nowrap">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#C86D51] text-[#FAF7F2] font-semibold text-[10px] tracking-wider uppercase shadow-xs">
             <Truck className="w-3 h-3" />
             Dispatch Schedule
           </span>
           <span className="font-medium text-[#FAF7F2]/90 text-[11px] sm:text-xs">
             Deliveries Run: <strong className="text-white">Mon, Tue, Fri & Sat</strong>{" "}
-            <span className="hidden md:inline text-white/50">|</span>{" "}
+            <span className="hidden md:inline text-white/40">|</span>{" "}
             <span className="opacity-75">Closed Wed, Thu & Sun</span>{" "}
-            <span className="hidden lg:inline text-white/50">•</span>{" "}
+            <span className="hidden lg:inline text-white/40">•</span>{" "}
             <span className="hidden lg:inline text-[#FAF7F2]/90">
               Delivered across Kigali within <strong>4 operating days</strong>
             </span>
@@ -40,9 +40,9 @@ export function AnnouncementBar() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#EBF0EC] hover:text-[#C86D51] transition-colors"
+            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#FAF7F2]/90 hover:text-[#C86D51] transition-colors"
           >
-            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+            <MessageCircle className="w-3.5 h-3.5 text-[#C86D51]" />
             <span>WhatsApp {WHATSAPP_DISPLAY_PHONE}</span>
             <ArrowRight className="w-3 h-3" />
           </a>
@@ -50,7 +50,7 @@ export function AnnouncementBar() {
           <button
             onClick={() => setIsVisible(false)}
             aria-label="Dismiss banner"
-            className="p-1 rounded text-white/60 hover:text-white transition-colors"
+            className="p-1 rounded text-white/60 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -59,3 +59,4 @@ export function AnnouncementBar() {
     </aside>
   );
 }
+export default AnnouncementBar;

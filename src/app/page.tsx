@@ -7,6 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { CategoryFilterBar } from "@/components/CategoryFilterBar";
 import { ProductGrid } from "@/components/ProductGrid";
+import { RoomBundlesSection } from "@/components/RoomBundlesSection";
 import { DeliveryTimelineSection } from "@/components/DeliveryTimelineSection";
 import { SisterBrandBanner } from "@/components/SisterBrandBanner";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
@@ -42,14 +43,14 @@ export default function HomePage() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#1E1B18]">
+      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#141413]">
         {/* Sticky Delivery Schedule Announcement */}
         <AnnouncementBar />
 
         {/* Brand Navbar with Referral Pill & Live Cart */}
         <Navbar />
 
-        {/* High-Converting Editorial Hero Section */}
+        {/* High-Converting Full-Screen Editorial Hero Section (100vh) */}
         <main className="flex-1">
           <HeroSection />
 
@@ -64,13 +65,16 @@ export default function HomePage() {
             totalFiltered={filteredCount}
           />
 
-          {/* Bento Product Grid with WhatsApp Checkout & Variant Swatches */}
+          {/* Bento Product Grid with Architectural Indexing, Swatches & WhatsApp Checkout */}
           <ProductGrid
             products={PRODUCTS}
             activeCategory={activeCategory}
             searchQuery={searchQuery}
             sortBy={sortBy}
           />
+
+          {/* Curated Room Bundles Section (Living Room, Closet Reset, Dining & Study Suite) */}
+          <RoomBundlesSection />
 
           {/* How Delivery Works: 4-Step Guide & Interactive Weekly Calendar */}
           <DeliveryTimelineSection />
@@ -85,7 +89,7 @@ export default function HomePage() {
           <FaqSection />
         </main>
 
-        {/* Global Footer */}
+        {/* Global Footer in Deep Forest Green #1B3B2B with stacked animated logo */}
         <Footer />
 
         {/* Slide-out Shopping Bag with Kigali Neighborhood Selector */}

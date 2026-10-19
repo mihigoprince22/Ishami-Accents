@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
 @theme {
+  --color-forest: #1B3B2B;
+  --color-forest-dark: #12281D;
+  --color-forest-light: #244C38;
   --color-alabaster: #FAF7F2;
-  --color-sand: #F0EAE1;
-  --color-sand-light: #F8F5EF;
-  --color-sand-dark: #E4DCD0;
-  --color-espresso: #1E1B18;
-  --color-espresso-muted: #57524C;
-  --color-espresso-light: #8A847C;
+  --color-sand: #EFECE6;
+  --color-travertine: #EFECE6;
+  --color-sand-light: #F7F5F0;
+  --color-sand-dark: #E2DDD5;
   --color-terracotta: #C86D51;
   --color-terracotta-hover: #B2583D;
   --color-terracotta-light: #F7EDE8;
+  --color-charcoal: #141413;
+  --color-charcoal-muted: #57524C;
+  --color-charcoal-light: #8A847C;
   --color-sage: #4A5D4E;
   --color-sage-hover: #3D4E41;
   --color-sage-light: #EBF0EC;
+
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-montserrat: var(--font-montserrat), "Montserrat", sans-serif;
 }
 
 :root {
   --background: #FAF7F2;
-  --foreground: #1E1B18;
+  --foreground: #141413;
 }
 
 /* Custom scrollbar for mobile tactile feel */
@@ -32,7 +38,7 @@
   background: #FAF7F2;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E4DCD0;
+  background: #E2DDD5;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -48,7 +54,7 @@
   scrollbar-width: none;
 }
 
-/* Modern dialog modal scroll containment per modern-web-guidance */
+/* Modern dialog modal scroll containment */
 dialog:modal {
   overscroll-behavior: contain;
 }

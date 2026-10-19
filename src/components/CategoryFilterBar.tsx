@@ -24,7 +24,7 @@ export function CategoryFilterBar({
   totalFiltered,
 }: CategoryFilterBarProps) {
   return (
-    <div className="sticky top-18 sm:top-20 z-20 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E4DCD0] py-3.5 transition-all">
+    <div className="sticky top-20 sm:top-22 z-20 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#1B3B2B]/10 py-3.5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
         {/* Top Row: Category Pills (Horizontal scroll on mobile) */}
         <div className="flex items-center justify-between gap-3 overflow-x-auto no-scrollbar pb-1">
@@ -38,8 +38,8 @@ export function CategoryFilterBar({
                   type="button"
                   className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? "bg-[#1E1B18] text-[#FAF7F2] shadow-sm"
-                      : "bg-[#F0EAE1] text-[#57524C] hover:bg-[#E4DCD0] hover:text-[#1E1B18]"
+                      ? "bg-[#1B3B2B] text-[#FAF7F2] shadow-sm"
+                      : "bg-[#EFECE6] text-[#57524C] hover:bg-[#E2DDD5] hover:text-[#141413]"
                   }`}
                 >
                   <span>{cat.label}</span>
@@ -47,7 +47,7 @@ export function CategoryFilterBar({
                     className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                       isActive
                         ? "bg-[#FAF7F2]/20 text-[#FAF7F2]"
-                        : "bg-[#E4DCD0] text-[#57524C]"
+                        : "bg-[#FAF7F2] text-[#57524C] border border-[#1B3B2B]/10"
                     }`}
                   >
                     {cat.count}
@@ -58,8 +58,8 @@ export function CategoryFilterBar({
           </div>
 
           {/* Desktop Total Match Counter */}
-          <div className="hidden md:flex items-center text-xs text-[#57524C] font-medium whitespace-nowrap shrink-0">
-            Showing <strong className="text-[#1E1B18] mx-1">{totalFiltered}</strong> items
+          <div className="hidden md:flex items-center text-xs text-[#57524C] font-mono whitespace-nowrap shrink-0">
+            Showing <strong className="text-[#141413] mx-1">{totalFiltered}</strong> items
           </div>
         </div>
 
@@ -73,13 +73,13 @@ export function CategoryFilterBar({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search blankets, storage poufs, wall art, table runners..."
-              className="w-full pl-9.5 pr-8 py-2 rounded-xl bg-[#F0EAE1]/80 border border-[#E4DCD0] text-xs font-medium text-[#1E1B18] placeholder-[#8A847C] focus:outline-none focus:ring-2 focus:ring-[#C86D51]/30 focus:border-[#C86D51] transition-all"
+              className="w-full pl-9.5 pr-8 py-2 rounded-xl bg-[#EFECE6]/80 border border-[#1B3B2B]/10 text-xs font-medium text-[#141413] placeholder-[#8A847C] focus:outline-none focus:ring-2 focus:ring-[#C86D51]/30 focus:border-[#C86D51] transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => onSearchChange("")}
                 aria-label="Clear search query"
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#8A847C] hover:text-[#1E1B18]"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#8A847C] hover:text-[#141413] cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -88,7 +88,7 @@ export function CategoryFilterBar({
 
           {/* Sort Selector & Result count for mobile */}
           <div className="flex items-center justify-between sm:justify-end gap-2">
-            <span className="text-xs text-[#57524C] sm:hidden">
+            <span className="text-xs text-[#57524C] sm:hidden font-mono">
               <strong>{totalFiltered}</strong> items found
             </span>
 
@@ -101,12 +101,12 @@ export function CategoryFilterBar({
                 id="catalog-sort"
                 value={sortBy}
                 onChange={(e) => onSortChange(e.target.value)}
-                className="py-1.5 pl-2.5 pr-8 rounded-xl bg-[#F0EAE1]/80 border border-[#E4DCD0] text-xs font-semibold text-[#1E1B18] focus:outline-none focus:ring-2 focus:ring-[#C86D51]/30 cursor-pointer"
+                className="py-1.5 pl-2.5 pr-7 rounded-xl bg-[#EFECE6] border border-[#1B3B2B]/10 text-xs font-semibold text-[#141413] focus:outline-none focus:ring-2 focus:ring-[#C86D51]/30 cursor-pointer"
               >
-                <option value="featured">Featured / Best Sellers</option>
+                <option value="featured">Featured First</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
-                <option value="name-asc">Alphabetical (A - Z)</option>
+                <option value="name-asc">Alphabetical (A-Z)</option>
               </select>
             </div>
           </div>
@@ -115,3 +115,4 @@ export function CategoryFilterBar({
     </div>
   );
 }
+export default CategoryFilterBar;

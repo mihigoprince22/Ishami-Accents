@@ -9,12 +9,15 @@ export interface ProductVariant {
 
 export interface Product {
   id: string;
+  indexNumber: string; // e.g. "01 / 11"
   title: string;
   category: "Wall & Living" | "Table & Dining" | "Smart Storage" | "Bath & Desk" | "Lifestyle & Gifts";
   categorySlug: "wall-living" | "table-dining" | "smart-storage" | "bath-desk" | "lifestyle-gifts";
   priceRwf: number;
   originalPriceRwf?: number;
   badges?: string[];
+  dimensionBadge?: string;
+  designerNote: string;
   description: string;
   details: string[];
   dimensions?: string;
@@ -22,6 +25,20 @@ export interface Product {
   images: string[];
   variants: ProductVariant[];
   featured?: boolean;
+}
+
+export interface RoomBundle {
+  id: string;
+  title: string;
+  subtitle: string;
+  tag: string;
+  priceRwf: number;
+  originalPriceRwf: number;
+  savingsRwf: number;
+  image: string;
+  includedItems: string[];
+  description: string;
+  designerTip: string;
 }
 
 export const CATEGORIES = [
@@ -58,15 +75,19 @@ export const TIKTOK_HANDLE = "@ishamiaccents";
 export const PARENT_BRAND_URL = "https://ishamidesign.vercel.app/";
 
 export const PRODUCTS: Product[] = [
-  // 1. Handcrafted Macramé Fiber Wall Hanging
+  // 01. Handcrafted Macramé Fiber Wall Hanging
   {
     id: "macrame-fiber-wall-hanging",
+    indexNumber: "01 / 11",
     title: "Handcrafted Macramé Fiber Wall Hanging (1.5m × 0.8m)",
     category: "Wall & Living",
     categorySlug: "wall-living",
     priceRwf: 48000,
     originalPriceRwf: 55000,
     badges: ["Best Seller", "Statement Piece"],
+    dimensionBadge: "1.5m (W) × 0.8m (H)",
+    designerNote:
+      "Anchor over a low-profile linen sofa or wooden bed headboard. The organic dip-dyed forest and sage tones soften white walls with acoustic warmth and biophilic calm.",
     description:
       "Architectural-grade woven fiber wall tapestry suspended on a natural solid wood rod. Adds instant warmth, tactile depth, and acoustic softness to living rooms, bedrooms, dining spaces, and boutique Airbnbs.",
     details: [
@@ -86,7 +107,7 @@ export const PRODUCTS: Product[] = [
       {
         id: "forest-sage-cream",
         name: "Forest Green, Sage & Cream",
-        colorHex: "#355E3B",
+        colorHex: "#1B3B2B",
         image: "/images/products/macrame-wall-hanging-1.jpeg",
         inStock: true,
         sku: "ISH-MAC-01",
@@ -95,15 +116,19 @@ export const PRODUCTS: Product[] = [
     featured: true,
   },
 
-  // 2. Aesthetic Neutral Wall Art Collage Set
+  // 02. Aesthetic Neutral Wall Art Collage Set
   {
     id: "aesthetic-neutral-wall-art-collage",
+    indexNumber: "02 / 11",
     title: "Aesthetic Neutral Wall Art Collage Set",
     category: "Wall & Living",
     categorySlug: "wall-living",
     priceRwf: 22000,
     originalPriceRwf: 26000,
     badges: ["Curated Pack", "Easy Styling"],
+    dimensionBadge: "16-Card Curated Set",
+    designerNote:
+      "Arrange in an asymmetric organic cluster above a study desk, bedside table, or coffee nook. Mount with brass drafting pins or frame in slim oak for a clean studio aesthetic.",
     description:
       "Curated gallery wall print collection featuring minimalist typography, architectural botanicals, and warm neutral photography. Perfect for dorms, bedrooms, home offices, and coffee nooks.",
     details: [
@@ -128,14 +153,18 @@ export const PRODUCTS: Product[] = [
     featured: false,
   },
 
-  // 3. Diamond-Knit Textured Throw Blanket
+  // 03. Diamond-Knit Textured Throw Blanket
   {
     id: "diamond-knit-throw-blanket",
+    indexNumber: "03 / 11",
     title: "Diamond-Knit Textured Throw Blanket",
     category: "Wall & Living",
     categorySlug: "wall-living",
     priceRwf: 28000,
     badges: ["Cozy Essential"],
+    dimensionBadge: "130cm × 170cm",
+    designerNote:
+      "Drape casually over the arm of a deep sofa or fold lengthwise across the foot of the bed. Earthy Taupe calms neutral rooms, while Mustard Yellow adds a joyful Kigali sun splash.",
     description:
       "Ultra-soft diamond-weave throw blanket with twisted fringe detailing for sofas, accent chairs, and beds. Lightweight yet deliciously warm for Kigali evening breezes.",
     details: [
@@ -171,15 +200,19 @@ export const PRODUCTS: Product[] = [
     featured: true,
   },
 
-  // 4. Artisanal Woven Table Runners
+  // 04. Artisanal Woven Table Runners
   {
     id: "artisanal-woven-table-runners",
+    indexNumber: "04 / 11",
     title: "Artisanal Woven Table Runners",
     category: "Table & Dining",
     categorySlug: "table-dining",
     priceRwf: 24000,
     originalPriceRwf: 28000,
     badges: ["Dining Centerpiece"],
+    dimensionBadge: "33cm × 180cm",
+    designerNote:
+      "Layer along the center of raw wood, granite, or glass tables. Ground with handcrafted ceramic tableware, textured clay pots, and taper candles for intimate dinners.",
     description:
       "Textured bohemian and rustic table runners crafted to elevate everyday dining tables, buffets, and coffee tables with natural artisanal elegance.",
     details: [
@@ -216,15 +249,19 @@ export const PRODUCTS: Product[] = [
     featured: true,
   },
 
-  // 5. Foldable High-Capacity Storage Pouf Ottoman
+  // 05. Foldable High-Capacity Storage Pouf Ottoman
   {
     id: "foldable-storage-pouf-ottoman",
+    indexNumber: "05 / 11",
     title: "Foldable High-Capacity Storage Pouf Ottoman",
     category: "Smart Storage",
     categorySlug: "smart-storage",
     priceRwf: 32000,
     originalPriceRwf: 38000,
     badges: ["Space Saver", "Multi-Functional", "Customer Favorite"],
+    dimensionBadge: "76cm × 38cm × 38cm",
+    designerNote:
+      "Position at the foot of your bed or next to a sofa as a dual coffee tray perch and extra guest seat. Stores up to 4 blankets inside while folding flat in seconds.",
     description:
       "3-in-1 padded footstool, extra guest seat, and heavy-duty hidden storage chest. Holds throws, toys, books, or bedding, and folds completely flat in seconds when not in use.",
     details: [
@@ -261,7 +298,7 @@ export const PRODUCTS: Product[] = [
         id: "pouf-charcoal",
         name: "Charcoal Grey",
         colorHex: "#4A4D52",
-        image: "/images/products/storage-pouf-palette.jpeg",
+        image: "/images/products/storage-pouf-stacked.jpeg",
         inStock: true,
         sku: "ISH-POUF-CG",
       },
@@ -293,15 +330,19 @@ export const PRODUCTS: Product[] = [
     featured: true,
   },
 
-  // 6. Clear-Window Foldable Wardrobe Storage Bag
+  // 06. Clear-Window Foldable Wardrobe Storage Bag
   {
     id: "clear-window-wardrobe-storage-bag",
+    indexNumber: "06 / 11",
     title: "Clear-Window Foldable Wardrobe Storage Bag",
     category: "Smart Storage",
     categorySlug: "smart-storage",
     priceRwf: 16000,
     originalPriceRwf: 20000,
     badges: ["Closet Organizer"],
+    dimensionBadge: "66L Capacity",
+    designerNote:
+      "Stack in pairs on upper closet shelves or under bed frames. The transparent front window eliminates the need to unpack to find seasonal blankets or extra pillows.",
     description:
       "Stackable closet organizer with front and top zipper access, reinforced carry handles, and a transparent viewing window for duvets, sweaters, bed linens, and seasonal apparel.",
     details: [
@@ -337,15 +378,19 @@ export const PRODUCTS: Product[] = [
     featured: false,
   },
 
-  // 7. "Laundry Deluxe" Structured Canvas Hamper
+  // 07. "Laundry Deluxe" Structured Canvas Hamper
   {
     id: "laundry-deluxe-canvas-hamper",
+    indexNumber: "07 / 11",
     title: '"Laundry Deluxe" Structured Canvas Hamper',
     category: "Smart Storage",
     categorySlug: "smart-storage",
     priceRwf: 26000,
     originalPriceRwf: 30000,
     badges: ["Modern Essential"],
+    dimensionBadge: "40cm (D) × 50cm (H)",
+    designerNote:
+      "Leave on display in master bathrooms or laundry suites. The internal wire rim holds its crisp cylindrical silhouette even when completely empty.",
     description:
       "Freestanding two-tone canvas laundry hamper featuring vegan leather riveted handles, water-resistant interior lining, and modern typographic print.",
     details: [
@@ -381,14 +426,18 @@ export const PRODUCTS: Product[] = [
     featured: false,
   },
 
-  // 8. Plush Cushioned Toilet Seat Cover
+  // 08. Plush Cushioned Toilet Seat Cover
   {
     id: "plush-cushioned-toilet-seat-cover",
+    indexNumber: "08 / 11",
     title: "Plush Cushioned Toilet Seat Cover",
     category: "Bath & Desk",
     categorySlug: "bath-desk",
     priceRwf: 12000,
     badges: ["Cozy Bath Accent"],
+    dimensionBadge: "Universal 43cm × 38cm",
+    designerNote:
+      "A playful tactile touch that prevents the cold shock of ceramic in cool Kigali mornings. Features a hygienic lifting patch so fingers never touch the seat rim directly.",
     description:
       "Washable, ultra-soft cushioned seat cover with a hygienic embroidered lift tab for year-round bathroom comfort, warm touch, and playful aesthetic charm.",
     details: [
@@ -424,15 +473,19 @@ export const PRODUCTS: Product[] = [
     featured: false,
   },
 
-  // 9. Retro Minimalist Flip Desk Calendar
+  // 09. Retro Minimalist Flip Desk Calendar
   {
     id: "retro-minimalist-flip-desk-calendar",
+    indexNumber: "09 / 11",
     title: "Retro Minimalist Flip Desk Calendar",
     category: "Bath & Desk",
     categorySlug: "bath-desk",
     priceRwf: 18000,
     originalPriceRwf: 22000,
     badges: ["Workplace Aesthetic"],
+    dimensionBadge: "20cm × 8cm × 14cm",
+    designerNote:
+      "Style beside a stone coffee mug, desk lamp, or bookshelf. Manually flipping the bold monochrome date cards creates an intentional, screen-free morning ritual.",
     description:
       "Perpetual mid-century modern flip calendar for office desks, bookshelves, console tables, and bedside styling. Never expires and adds nostalgic graphic appeal.",
     details: [
@@ -460,12 +513,16 @@ export const PRODUCTS: Product[] = [
   // 10. Portable Mini Karaoke Set with 2 Wireless Mics
   {
     id: "portable-mini-karaoke-set",
+    indexNumber: "10 / 11",
     title: "Portable Mini Karaoke Set with 2 Wireless Mics",
     category: "Lifestyle & Gifts",
     categorySlug: "lifestyle-gifts",
     priceRwf: 45000,
     originalPriceRwf: 52000,
     badges: ["Top Gift for Kids", "Viral Hit", "Party Ready"],
+    dimensionBadge: "Dual Wireless Mics",
+    designerNote:
+      "Keep ready on a living room credenza for impromptu weekend singalongs, family game nights, or outdoor garden terrace parties. The dual microphones make it an unforgettable holiday gift.",
     description:
       "Compact Bluetooth speaker with vibrant RGB LED light halo and two rechargeable wireless microphones with fun voice-changing effects for family nights and gatherings.",
     details: [
@@ -506,11 +563,15 @@ export const PRODUCTS: Product[] = [
   // 11. Everyday Carry & Self-Care Collection
   {
     id: "everyday-carry-self-care-collection",
+    indexNumber: "11 / 11",
     title: "Everyday Carry & Self-Care Collection",
     category: "Lifestyle & Gifts",
     categorySlug: "lifestyle-gifts",
     priceRwf: 38000,
     badges: ["Lifestyle Duo", "Travel Essential"],
+    dimensionBadge: "Curated Travel Edition",
+    designerNote:
+      "Engineered for fluid Kigali urban transit. Choose between the understated anti-theft convertible backpack or the pocket terracotta grooming set designed for sleek weekend escapes.",
     description:
       "Curated lifestyle accessories designed for modern daily movement. Select between our stylish anti-theft convertible backpack or the compact pocket terracotta manicure kit.",
     details: [
@@ -528,7 +589,7 @@ export const PRODUCTS: Product[] = [
     variants: [
       {
         id: "backpack-taupe-espresso",
-        name: "Two-Tone Convertible Backpack / Shoulder Bag (Taupe & Espresso with Pom-Pom Charm)",
+        name: "Two-Tone Convertible Backpack / Shoulder Bag",
         colorHex: "#B8ADA1",
         image: "/images/products/convertible-backpack-taupe.jpeg",
         inStock: true,
@@ -536,7 +597,7 @@ export const PRODUCTS: Product[] = [
       },
       {
         id: "manicure-set-terracotta",
-        name: "6-Piece Terracotta Travel Manicure Set (Pocket hard-case with rose-tinted tools)",
+        name: "6-Piece Terracotta Travel Manicure Set",
         colorHex: "#C86D51",
         image: "/images/products/manicure-set-terracotta.jpeg",
         inStock: true,
@@ -547,7 +608,68 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-// Utility functions for delivery & CAT timezone logic
+// Room Bundles Data
+export const ROOM_BUNDLES: RoomBundle[] = [
+  {
+    id: "living-room-statement",
+    title: "The Living Room Statement Bundle",
+    subtitle: "Tactile Scandi-African Warmth",
+    tag: "Living Room Edit • Save 13,000 RWF",
+    priceRwf: 95000,
+    originalPriceRwf: 108000,
+    savingsRwf: 13000,
+    image: "/images/products/macrame-wall-hanging-1.jpeg",
+    includedItems: [
+      "Handcrafted Macramé Fiber Wall Hanging (1.5m × 0.8m)",
+      "Diamond-Knit Textured Throw Blanket (Choice of Taupe or Mustard)",
+      "Foldable Storage Pouf Ottoman (Hidden Storage + Footrest)",
+    ],
+    description:
+      "Our signature living room trio: transform bare walls with artisan woven macramé, add tactile comfort with the diamond throw, and keep clutter out of sight with the cushioned storage pouf.",
+    designerTip:
+      "Style the macramé centrally over your main sofa, drape the throw blanket casually over the corner, and position the pouf as an organic cocktail footstool.",
+  },
+  {
+    id: "serene-closet-reset",
+    title: "The Serene Closet Reset Bundle",
+    subtitle: "Aesthetic Wardrobe Sanctuary",
+    tag: "Closet Suite • Save 12,000 RWF",
+    priceRwf: 82000,
+    originalPriceRwf: 94000,
+    savingsRwf: 12000,
+    image: "/images/products/canvas-hamper-brown.jpeg",
+    includedItems: [
+      '2x Clear-Window Foldable Wardrobe Bags (66L each)',
+      '"Laundry Deluxe" Structured Canvas Hamper',
+      "Foldable High-Capacity Storage Pouf Ottoman",
+    ],
+    description:
+      "A complete closet and dressing room overhaul. Organizes blankets, linens, and laundry into architectural containers that look gorgeous even in open closets.",
+    designerTip:
+      "Stack the two clear-window bags on your closet's upper shelves, place the structured hamper in your dressing corner, and tuck extra pillows into the ottoman.",
+  },
+  {
+    id: "hosted-dining-study",
+    title: "The Hosted Dining & Study Suite",
+    subtitle: "Artisanal Table & Desk Essentials",
+    tag: "Dining & Study • Save 8,000 RWF",
+    priceRwf: 56000,
+    originalPriceRwf: 64000,
+    savingsRwf: 8000,
+    image: "/images/products/table-runner-classic-jute.jpeg",
+    includedItems: [
+      "Artisanal Woven Table Runner (Macramé / Natural Tan Jute)",
+      "Retro Minimalist Flip Desk Calendar (Perpetual Tile)",
+      "Aesthetic Neutral Wall Art Collage Set (16-Print Pack)",
+    ],
+    description:
+      "Curate your dining table and creative work surface with organic jute textiles, perpetual modernist desk typography, and warm beige architectural art cards.",
+    designerTip:
+      "Run the jute runner along your dining table with local ceramics, place the flip calendar beside your laptop, and frame the prints above your workstation.",
+  },
+];
+
+// Delivery & Timezone Logic
 export interface DeliveryStatusInfo {
   isOpen: boolean;
   dayName: string;
@@ -558,15 +680,9 @@ export interface DeliveryStatusInfo {
   message: string;
 }
 
-/**
- * Kigali operates on CAT (Central Africa Time, UTC+2).
- * Operating & Delivery Days: Monday, Tuesday, Friday, Saturday (1, 2, 5, 6)
- * Non-Operating Days: Wednesday, Thursday, Sunday (3, 4, 0)
- */
 export function getCatDeliveryStatus(dateOverride?: Date): DeliveryStatusInfo {
   const now = dateOverride || new Date();
 
-  // Format into Africa/Kigali timezone
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: "Africa/Kigali",
     weekday: "long",
@@ -578,11 +694,9 @@ export function getCatDeliveryStatus(dateOverride?: Date): DeliveryStatusInfo {
   const parts = formatter.formatToParts(now);
   const weekdayPart = parts.find((p) => p.type === "weekday")?.value || "Monday";
 
-  // Operating days in Kigali: Mon, Tue, Fri, Sat
   const operatingDays = ["Monday", "Tuesday", "Friday", "Saturday"];
   const isOpen = operatingDays.includes(weekdayPart);
 
-  // Determine next operating day
   let nextOperatingDay = "Friday";
   if (weekdayPart === "Wednesday" || weekdayPart === "Thursday") {
     nextOperatingDay = "Friday";
@@ -628,9 +742,6 @@ export function getCatDeliveryStatus(dateOverride?: Date): DeliveryStatusInfo {
   }
 }
 
-/**
- * Format price in Rwandan Francs (RWF)
- */
 export function formatRwf(amount: number): string {
   return new Intl.NumberFormat("en-RW", {
     style: "decimal",
@@ -638,9 +749,6 @@ export function formatRwf(amount: number): string {
   }).format(amount) + " RWF";
 }
 
-/**
- * Generate instant WhatsApp order link for a single item
- */
 export function generateSingleItemWhatsAppLink(
   product: Product,
   selectedVariant: ProductVariant,
@@ -657,9 +765,20 @@ export function generateSingleItemWhatsAppLink(
   return `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
-/**
- * Generate WhatsApp order link for multi-item cart
- */
+export function generateBundleWhatsAppLink(bundle: RoomBundle): string {
+  const priceFormatted = formatRwf(bundle.priceRwf);
+  const text =
+    `Hello Ishami Accents! 🌿 I would like to order the Curated Bundle:\n` +
+    `✨ ${bundle.title} (${bundle.subtitle})\n` +
+    `Special Bundle Price: ${priceFormatted} (Save ${formatRwf(bundle.savingsRwf)})\n\n` +
+    `Included Items:\n` +
+    bundle.includedItems.map((item) => `• ${item}`).join("\n") +
+    `\n\nI understand delivery takes place across Kigali within 4 operating days (Mon, Tue, Fri & Sat).\n` +
+    `Please confirm dispatch and delivery availability!`;
+
+  return `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
 export interface CartItemData {
   product: Product;
   variant: ProductVariant;

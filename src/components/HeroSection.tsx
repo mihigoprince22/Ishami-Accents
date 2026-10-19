@@ -1,176 +1,213 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowDown, MessageCircle, Sparkles, ShieldCheck, Clock, MapPin } from "lucide-react";
-import { DeliveryStatusWidget } from "./DeliveryStatusWidget";
-import { WHATSAPP_PHONE_NUMBER } from "@/data/products";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowDown, MessageCircle, Sparkles, Clock, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { WHATSAPP_PHONE_NUMBER, getCatDeliveryStatus, DeliveryStatusInfo } from "@/data/products";
+
+const HERO_SLIDES = [
+  {
+    image: "/hero-lifestyle.jpg",
+    title: "Curated Kigali Spaces",
+    caption: "Sun-drenched luxury living room with wood slat paneling & artisan woven accents",
+  },
+  {
+    image: "/images/products/macrame-wall-hanging-1.jpeg",
+    title: "Handcrafted Macramé (1.5m × 0.8m)",
+    caption: "Dip-dyed forest green & sage organic cotton fiber on solid wood timber rod",
+  },
+  {
+    image: "/images/products/throw-blanket-taupe.jpeg",
+    title: "Diamond-Knit Textured Throw",
+    caption: "Ultra-soft raised relief diamond weave in Earthy Taupe Grey with knotted fringe",
+  },
+];
 
 export function HeroSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [catStatus, setCatStatus] = useState<DeliveryStatusInfo | null>(null);
+
+  // Safe client-side time evaluation for Kigali CAT status
+  useEffect(() => {
+    setCatStatus(getCatDeliveryStatus());
+    const interval = setInterval(() => {
+      setCatStatus(getCatDeliveryStatus());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Multi-slide crossfade rotation
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 6500);
+    return () => clearInterval(slideTimer);
+  }, []);
+
   return (
-    <section className="relative overflow-hidden pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pb-24 border-b border-[#E4DCD0]/60">
-      {/* Subtle organic background tint */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#F0EAE1]/70 rounded-full blur-3xl -z-10 pointer-events-none transform translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#C86D51]/5 rounded-full blur-2xl -z-10 pointer-events-none transform -translate-x-1/3" />
+    <section className="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-between overflow-hidden -mt-20 sm:-mt-22 pt-24 sm:pt-28 pb-10 sm:pb-14">
+      {/* Background Image Carousel with Smooth Crossfade */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.4, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={HERO_SLIDES[currentSlide].image}
+              alt={HERO_SLIDES[currentSlide].title}
+              fill
+              priority={currentSlide === 0}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </motion.div>
+        </AnimatePresence>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Editorial Copy & Conversion CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start space-y-5 sm:space-y-6">
-            {/* Live CAT Status Pill & Brand Tag */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <DeliveryStatusWidget variant="pill" showModalTrigger={true} />
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-[#EBF0EC] text-[#4A5D4E] border border-[#4A5D4E]/20">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Sister brand of Ishami Design Ltd</span>
-              </span>
-            </div>
+        {/* Editorial Rich Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1B3B2B]/95 via-[#1B3B2B]/55 to-black/45 pointer-events-none" />
 
-            {/* Main Headline */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1E1B18] leading-[1.12]">
-              Thoughtfully Curated Accents for Everyday Spaces.
-            </h1>
+        {/* Exposed 1px Architectural Gridlines */}
+        <div className="absolute inset-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none opacity-20">
+          <div className="w-full h-full border-x border-[#FAF7F2]/30 grid grid-cols-2 md:grid-cols-4">
+            <div className="border-r border-[#FAF7F2]/20 h-full" />
+            <div className="border-r border-[#FAF7F2]/20 h-full hidden md:block" />
+            <div className="border-r border-[#FAF7F2]/20 h-full hidden md:block" />
+            <div className="h-full" />
+          </div>
+        </div>
+      </div>
 
-            {/* Sub-headline */}
-            <p className="text-base sm:text-lg text-[#57524C] font-normal leading-relaxed max-w-2xl">
-              Elevate your home with tactile woven fibers, diamond-knit comfort, and clever
-              modular organization. Designed in Kigali for modern living rooms, bedrooms, and
-              Airbnbs.
-            </p>
+      {/* Slide Indicators Top-Right */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-end items-center pt-2">
+        <div className="flex items-center gap-2 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15">
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
+                currentSlide === idx ? "w-8 bg-[#C86D51]" : "w-2 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+          <span className="text-[11px] font-mono tracking-wider text-[#FAF7F2]/80 ml-1">
+            0{currentSlide + 1} / 0{HERO_SLIDES.length}
+          </span>
+        </div>
+      </div>
 
-            {/* Dynamic CAT Schedule Notice Card (Mobile & Desktop) */}
-            <div className="w-full max-w-xl">
-              <DeliveryStatusWidget variant="card" />
-            </div>
+      {/* Main Center / Bottom Editorial Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+          className="max-w-3xl"
+        >
+          {/* Sister Brand Provenance Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#FAF7F2] text-xs font-semibold tracking-wider uppercase mb-5">
+            <Sparkles className="w-3.5 h-3.5 text-[#C86D51]" />
+            <span>CURATED BY ISHAMI INTERIOR DESIGN & DECOR LTD • EST. 2019</span>
+          </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto pt-1">
-              <a
-                href="#catalog"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#1E1B18] text-[#FAF7F2] font-semibold text-sm hover:bg-[#C86D51] transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer group"
-              >
-                <span>Explore Catalog (11 Items)</span>
-                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-              </a>
+          {/* Oversized Headline */}
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#FAF7F2] leading-[1.08] mb-5">
+            Architectural Warmth, Curated for Everyday Spaces.
+          </h1>
 
-              <a
-                href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(
-                  "Hello Ishami Accents! 🌿 I am browsing your catalog and would love to ask a quick question."
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#F0EAE1] text-[#1E1B18] hover:bg-[#E4DCD0] font-semibold text-sm border border-[#E4DCD0] transition-all duration-200 cursor-pointer"
-              >
-                <MessageCircle className="w-4 h-4 text-emerald-600" />
-                <span>Chat with Kigali Team</span>
-              </a>
-            </div>
+          {/* Subheadline */}
+          <p className="text-base sm:text-xl text-[#FAF7F2]/90 font-light leading-relaxed max-w-2xl mb-8">
+            Hand-selected home accents, artisanal textiles, and smart storage—delivered to your door
+            in Kigali within 4 operating days.
+          </p>
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-2 border-t border-[#E4DCD0] w-full max-w-xl text-[#57524C]">
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#C86D51] shrink-0" />
-                <span className="text-xs font-medium">4 Operating Days Delivery</span>
+          {/* Dual CTAs */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a
+              href="#catalog"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[#C86D51] hover:bg-[#B2583D] text-[#FAF7F2] font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer group"
+            >
+              <span>Explore the Collection ↓</span>
+              <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+            </a>
+
+            <a
+              href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(
+                "Hello Ishami Accents! 🌿 I am browsing your retail home accents collection and would like to order on WhatsApp."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white/15 hover:bg-white/25 text-[#FAF7F2] font-semibold text-sm border border-white/25 backdrop-blur-md transition-all duration-300 cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4 text-[#C86D51]" />
+              <span>Order on WhatsApp (+250 788 310 401) ↗</span>
+            </a>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom Editorial Bar: Live CAT Status Card & Trust Points */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end border-t border-white/15 pt-5">
+          {/* Left: Bottom Corner Live CAT Dispatch Status Card */}
+          <div className="md:col-span-6 lg:col-span-5">
+            <div className="bg-black/40 backdrop-blur-md border border-white/15 rounded-2xl p-4 text-[#FAF7F2]">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#FAF7F2]/70">
+                  Kigali Dispatch Desk • CAT (UTC+2)
+                </span>
+                <span className="text-[11px] font-mono text-[#FAF7F2]/80">
+                  {catStatus?.catTimeStr || "Live Status"}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#4A5D4E] shrink-0" />
-                <span className="text-xs font-medium">All Kigali Neighborhoods</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#1E1B18] shrink-0" />
-                <span className="text-xs font-medium">Inspect on Arrival</span>
-              </div>
+
+              {catStatus ? (
+                <div className="flex items-start gap-2.5">
+                  {catStatus.isOpen ? (
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  ) : (
+                    <Clock className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                  )}
+                  <div>
+                    <p className="text-xs sm:text-sm font-semibold">
+                      {catStatus.isOpen
+                        ? "🟢 Dispatch Open Today • Delivered within 4 operating days"
+                        : "🕒 Studio Closed for Dispatch Today (Wed, Thu, Sun) • Orders queued for next operating day"}
+                    </p>
+                    <p className="text-[11px] text-[#FAF7F2]/75 mt-0.5">
+                      Active Dispatch: Mon, Tue, Fri & Sat across Kimihurura, Kiyovu, Nyarutarama &
+                      all Kigali.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="animate-pulse flex items-center gap-2 text-xs text-[#FAF7F2]/60">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>Syncing Central Africa Time dispatch status...</span>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Right Column: Visual Collage & Bento Lifestyle Showcase */}
-          <div className="lg:col-span-5 relative mt-4 lg:mt-0">
-            {/* Main Featured Showcase Card */}
-            <div className="relative rounded-3xl overflow-hidden bg-[#F0EAE1] border border-[#E4DCD0] shadow-xl group">
-              <div className="relative aspect-[4/3] sm:aspect-[4/3] w-full overflow-hidden">
-                <Image
-                  src="/images/products/macrame-wall-hanging-1.jpeg"
-                  alt="Handcrafted Macramé Fiber Wall Hanging in Modern Living Room"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                {/* Overlaid Pill Badge */}
-                <div className="absolute top-3 left-3 bg-[#1E1B18]/85 backdrop-blur-md text-[#FAF7F2] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Featured Statement Piece
-                </div>
-
-                {/* Bottom Card Info */}
-                <div className="absolute bottom-3 left-3 right-3 text-[#FAF7F2] flex items-end justify-between">
-                  <div>
-                    <h3 className="font-serif text-lg font-bold leading-tight">
-                      Handcrafted Macramé Hanging
-                    </h3>
-                    <p className="text-xs text-[#FAF7F2]/80">1.5m Width on Solid Teak Rod</p>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-[#C86D51] text-white text-xs font-bold shadow">
-                    48,000 RWF
-                  </span>
-                </div>
-              </div>
-
-              {/* Mini Gallery Strip Below */}
-              <div className="p-3 bg-[#FAF7F2] grid grid-cols-3 gap-2">
-                <div className="relative aspect-square rounded-xl overflow-hidden border border-[#E4DCD0] group/item">
-                  <Image
-                    src="/images/products/throw-blanket-taupe.jpeg"
-                    alt="Diamond-Knit Throw Blanket"
-                    fill
-                    sizes="100px"
-                    className="object-cover group-hover/item:scale-110 transition-transform duration-300"
-                  />
-                  <span className="absolute bottom-1 left-1 right-1 text-[9px] font-bold bg-[#1E1B18]/80 text-white text-center py-0.5 rounded truncate px-1">
-                    Diamond Throw
-                  </span>
-                </div>
-
-                <div className="relative aspect-square rounded-xl overflow-hidden border border-[#E4DCD0] group/item">
-                  <Image
-                    src="/images/products/storage-pouf-teal.jpeg"
-                    alt="Foldable Storage Pouf Ottoman"
-                    fill
-                    sizes="100px"
-                    className="object-cover group-hover/item:scale-110 transition-transform duration-300"
-                  />
-                  <span className="absolute bottom-1 left-1 right-1 text-[9px] font-bold bg-[#1E1B18]/80 text-white text-center py-0.5 rounded truncate px-1">
-                    Storage Pouf
-                  </span>
-                </div>
-
-                <div className="relative aspect-square rounded-xl overflow-hidden border border-[#E4DCD0] group/item">
-                  <Image
-                    src="/images/products/table-runner-macrame-burlap.jpeg"
-                    alt="Artisanal Table Runner"
-                    fill
-                    sizes="100px"
-                    className="object-cover group-hover/item:scale-110 transition-transform duration-300"
-                  />
-                  <span className="absolute bottom-1 left-1 right-1 text-[9px] font-bold bg-[#1E1B18]/80 text-white text-center py-0.5 rounded truncate px-1">
-                    Table Runner
-                  </span>
-                </div>
-              </div>
+          {/* Right: Architectural Feature Points */}
+          <div className="md:col-span-6 lg:col-span-7 flex flex-wrap items-center justify-start md:justify-end gap-6 text-[#FAF7F2]/85 text-xs font-medium pb-1">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C86D51]"></span>
+              <span>100% Authentic Photos</span>
             </div>
-
-            {/* Floating Trust Card */}
-            <div className="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 bg-[#FAF7F2] border border-[#E4DCD0] p-3 rounded-2xl shadow-lg flex items-center gap-3 max-w-[240px]">
-              <div className="w-9 h-9 rounded-full bg-[#EBF0EC] text-[#4A5D4E] flex items-center justify-center font-serif font-bold text-sm shrink-0">
-                IA
-              </div>
-              <div className="text-left">
-                <p className="text-[11px] font-bold text-[#1E1B18] leading-tight">
-                  Kigali Direct Dispatch
-                </p>
-                <p className="text-[10px] text-[#57524C]">Mon, Tue, Fri & Sat</p>
-              </div>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C86D51]"></span>
+              <span>Inspect on Delivery</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C86D51]"></span>
+              <span>Direct WhatsApp Concierge</span>
             </div>
           </div>
         </div>
@@ -178,3 +215,4 @@ export function HeroSection() {
     </section>
   );
 }
+export default HeroSection;

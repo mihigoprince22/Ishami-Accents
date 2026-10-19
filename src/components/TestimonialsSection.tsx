@@ -32,19 +32,19 @@ export function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-14 sm:py-20 bg-[#FAF7F2] border-b border-[#E4DCD0]">
+    <section className="py-14 sm:py-20 bg-[#FAF7F2] border-b border-[#1B3B2B]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center max-w-xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0EAE1] text-[#C86D51] text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EFECE6] text-[#C86D51] text-xs font-mono font-bold uppercase tracking-wider">
             <Star className="w-3.5 h-3.5 fill-current" />
             <span>Kigali Customer Love</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E1B18]">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#141413]">
             Loved in Homes Across Kigali
           </h2>
 
-          <p className="text-xs sm:text-sm text-[#57524C]">
+          <p className="text-xs sm:text-sm text-[#57524C] font-light">
             Real feedback from homeowners, apartment residents, and Airbnb hosts who shop our accents.
           </p>
         </div>
@@ -53,11 +53,11 @@ export function TestimonialsSection() {
           {REVIEWS.map((review, i) => (
             <div
               key={i}
-              className="bg-[#F0EAE1]/70 rounded-3xl p-6 border border-[#E4DCD0] flex flex-col justify-between space-y-4 hover:border-[#C86D51]/40 transition-colors"
+              className="bg-[#EFECE6]/70 rounded-3xl p-6 border border-[#1B3B2B]/10 flex flex-col justify-between space-y-4 hover:border-[#C86D51]/40 transition-colors"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex text-amber-500">
+                  <div className="flex text-[#C86D51]">
                     {[...Array(review.stars)].map((_, idx) => (
                       <Star key={idx} className="w-4 h-4 fill-current" />
                     ))}
@@ -65,20 +65,20 @@ export function TestimonialsSection() {
                   <Quote className="w-5 h-5 text-[#8A847C]/40" />
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#1E1B18] leading-relaxed italic">
+                <p className="text-xs sm:text-sm text-[#141413] leading-relaxed italic font-light">
                   &ldquo;{review.text}&rdquo;
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-[#E4DCD0] flex items-center justify-between">
+              <div className="pt-3 border-t border-[#1B3B2B]/10 flex items-center justify-between">
                 <div>
-                  <h4 className="text-xs font-bold text-[#1E1B18] flex items-center gap-1.5">
+                  <h4 className="text-xs font-bold text-[#141413] flex items-center gap-1.5">
                     <span>{review.name}</span>
-                    <CheckCircle className="w-3 h-3 text-[#4A5D4E]" />
+                    <CheckCircle className="w-3 h-3 text-[#1B3B2B]" />
                   </h4>
                   <p className="text-[11px] text-[#57524C]">{review.location}</p>
                 </div>
-                <span className="text-[10px] text-[#8A847C] bg-white/60 px-2 py-0.5 rounded-md">
+                <span className="text-[10px] text-[#8A847C] bg-white/70 px-2 py-0.5 rounded-md font-mono">
                   {review.date}
                 </span>
               </div>
@@ -89,3 +89,4 @@ export function TestimonialsSection() {
     </section>
   );
 }
+export default TestimonialsSection;

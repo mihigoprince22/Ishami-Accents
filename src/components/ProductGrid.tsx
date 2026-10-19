@@ -57,10 +57,10 @@ export function ProductGrid({
   if (filteredProducts.length === 0) {
     return (
       <div className="py-20 text-center max-w-md mx-auto px-4">
-        <div className="w-16 h-16 rounded-3xl bg-[#F0EAE1] flex items-center justify-center mx-auto mb-4 text-[#8A847C]">
+        <div className="w-16 h-16 rounded-3xl bg-[#EFECE6] flex items-center justify-center mx-auto mb-4 text-[#8A847C]">
           <PackageSearch className="w-8 h-8" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-[#1E1B18] mb-2">
+        <h3 className="font-serif text-2xl font-bold text-[#141413] mb-2">
           No matching accents found
         </h3>
         <p className="text-xs text-[#57524C] mb-6 leading-relaxed">
@@ -72,19 +72,19 @@ export function ProductGrid({
   }
 
   return (
-    <section id="catalog" className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6 sm:mb-8 pb-4 border-b border-[#E4DCD0]">
+    <section id="catalog" className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section Header with Architectural Framing */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10 pb-5 border-b border-[#1B3B2B]/12">
         <div>
-          <div className="flex items-center gap-1.5 text-xs font-bold text-[#C86D51] uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#C86D51] uppercase tracking-widest mb-1.5">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>The Kigali Retail Collection</span>
+            <span>Kigali Retail Lookbook • 01 — 11</span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#1E1B18]">
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#141413] tracking-tight">
             Curated Accents ({filteredProducts.length})
           </h2>
         </div>
-        <p className="text-xs text-[#57524C] max-w-md">
+        <p className="text-xs sm:text-sm text-[#57524C] max-w-md leading-relaxed font-light">
           Tactile home accessories in stock in Kigali. Ready for 4-operating-day dispatch with
           instant WhatsApp coordination.
         </p>
@@ -99,3 +99,4 @@ export function ProductGrid({
     </section>
   );
 }
+export default ProductGrid;
