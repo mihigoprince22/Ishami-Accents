@@ -3,8 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
-import { ProductVariant, formatRwf, generateSingleItemWhatsAppLink } from "@/data/products";
-import { X, ShoppingBag, MessageCircle, Check, ChevronLeft, ChevronRight, Sparkles, ShieldCheck, Ruler, Layers, Lightbulb } from "lucide-react";
+import {
+  ProductVariant,
+  formatRwf,
+  generateSingleItemWhatsAppLink,
+  LOCATION_DELIVERY_POLICY,
+} from "@/data/products";
+import { X, ShoppingBag, MessageCircle, Check, ChevronLeft, ChevronRight, Sparkles, ShieldCheck, Ruler, Layers } from "lucide-react";
 
 export function ProductQuickViewModal() {
   const { quickViewProduct, closeQuickView, addToCart } = useCart();
@@ -85,9 +90,9 @@ export function ProductQuickViewModal() {
               <span className="text-[10px] font-mono font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-[#1B3B2B] text-[#FAF7F2]">
                 {quickViewProduct.indexNumber || "01 / 11"}
               </span>
-              {quickViewProduct.dimensionBadge && (
-                <span className="text-[10px] font-mono font-semibold tracking-wide px-2.5 py-1 rounded-full bg-white/90 text-[#1B3B2B] border border-[#1B3B2B]/15">
-                  {quickViewProduct.dimensionBadge}
+              {quickViewProduct.dimensions && (
+                <span className="text-[10px] font-mono font-bold tracking-wide px-2.5 py-1 rounded-full bg-white/95 text-[#1B3B2B] border border-[#1B3B2B]/20 shadow-xs">
+                  📏 {quickViewProduct.dimensions}
                 </span>
               )}
             </div>
@@ -154,14 +159,14 @@ export function ProductQuickViewModal() {
               {quickViewProduct.title}
             </h2>
 
-            {/* Price */}
-            <div className="flex items-baseline gap-3">
+            {/* Price & Dimension Pill */}
+            <div className="flex items-baseline gap-3 flex-wrap">
               <span className="font-sans text-2xl sm:text-3xl font-extrabold text-[#141413]">
                 {formatRwf(quickViewProduct.priceRwf)}
               </span>
-              {quickViewProduct.originalPriceRwf && (
-                <span className="text-sm text-[#8A847C] line-through">
-                  {formatRwf(quickViewProduct.originalPriceRwf)}
+              {quickViewProduct.dimensions && (
+                <span className="text-xs font-mono font-bold text-[#1B3B2B] bg-[#EFECE6] px-2.5 py-1 rounded-md border border-[#1B3B2B]/10">
+                  Dimensions: {quickViewProduct.dimensions}
                 </span>
               )}
             </div>
@@ -303,17 +308,10 @@ export function ProductQuickViewModal() {
               </a>
             </div>
 
-            <div className="flex items-center justify-center gap-3 text-[10px] text-[#57524C] pt-1">
-              <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-[#1B3B2B]" />
-                Inspect before paying
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-[#C86D51]" />
-                4-operating-day Kigali dispatch
-              </span>
-            </div>
+            {/* Policy Notice */}
+            <p className="text-[10px] text-[#57524C] text-center leading-snug pt-1">
+              {LOCATION_DELIVERY_POLICY}
+            </p>
           </div>
         </div>
       </div>

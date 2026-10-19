@@ -7,9 +7,10 @@ import {
   ProductVariant,
   formatRwf,
   generateSingleItemWhatsAppLink,
+  LOCATION_DELIVERY_POLICY,
 } from "@/data/products";
 import { useCart } from "@/context/CartContext";
-import { ShoppingBag, MessageCircle, ChevronLeft, ChevronRight, Eye, Check, Lightbulb } from "lucide-react";
+import { ShoppingBag, MessageCircle, ChevronLeft, ChevronRight, Eye, Check } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
@@ -87,10 +88,10 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.indexNumber || "01 / 11"}
           </span>
 
-          {/* Dimension Badge */}
-          {product.dimensionBadge && (
-            <span className="text-[10px] font-mono font-semibold tracking-wide px-2.5 py-1 rounded-full bg-white/90 text-[#1B3B2B] backdrop-blur-md border border-[#1B3B2B]/15 shadow-xs">
-              {product.dimensionBadge}
+          {/* Dimension Badge Over Image */}
+          {product.dimensions && (
+            <span className="text-[10px] font-mono font-bold tracking-wide px-2.5 py-1 rounded-full bg-white/95 text-[#1B3B2B] backdrop-blur-md border border-[#1B3B2B]/20 shadow-xs">
+              📏 {product.dimensions}
             </span>
           )}
 
@@ -158,13 +159,13 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Card Content */}
       <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between gap-3.5 bg-[#FAF7F2]">
         <div className="space-y-2">
-          {/* Category & Dimensions */}
+          {/* Category & Dimension Pill */}
           <div className="flex items-center justify-between text-[11px] text-[#57524C]">
-            <span className="font-semibold uppercase tracking-wider text-[#1B3B2B]">
+            <span className="font-semibold uppercase tracking-wider text-[#1B3B2B] font-mono">
               {product.category}
             </span>
             {product.dimensions && (
-              <span className="truncate max-w-[150px] opacity-75 font-mono text-[10px]">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EFECE6] text-[#1B3B2B] font-mono font-bold text-[10px] border border-[#1B3B2B]/10">
                 {product.dimensions}
               </span>
             )}
@@ -238,20 +239,24 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Price & Action Buttons */}
         <div className="pt-3 border-t border-[#1B3B2B]/10 space-y-2.5">
-          <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline justify-between gap-2">
             <div className="flex items-baseline gap-2">
               <span className="font-sans text-xl sm:text-2xl font-extrabold text-[#141413]">
                 {formatRwf(product.priceRwf)}
               </span>
               {product.originalPriceRwf && (
-                <span className="text-xs text-[#8A847C] line-through">
+                <span className="text-xs text-[#8A847C] line-through font-sans">
                   {formatRwf(product.originalPriceRwf)}
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-semibold text-[#1B3B2B] bg-[#EFECE6] px-2 py-0.5 rounded-md border border-[#1B3B2B]/10">
-              4-Day Dispatch
-            </span>
+
+            {/* Dimension Pill next to Price */}
+            {product.dimensions && (
+              <span className="text-[10px] font-mono font-bold text-[#1B3B2B] bg-[#EFECE6] px-2 py-0.5 rounded-md border border-[#1B3B2B]/10 truncate max-w-[140px]">
+                {product.dimensions}
+              </span>
+            )}
           </div>
 
           {/* Dual Action Buttons: Add to Bag + Instant Buy via WhatsApp */}
@@ -291,6 +296,11 @@ export function ProductCard({ product }: ProductCardProps) {
               <span>Buy on WA</span>
             </a>
           </div>
+
+          {/* Location-Based Delivery Fee Policy Notice */}
+          <p className="text-[10px] text-[#57524C] leading-snug pt-2 border-t border-[#1B3B2B]/8 font-light">
+            {LOCATION_DELIVERY_POLICY}
+          </p>
         </div>
       </div>
     </article>

@@ -7,6 +7,7 @@ import {
   KIGALI_NEIGHBORHOODS,
   formatRwf,
   generateCartWhatsAppLink,
+  LOCATION_DELIVERY_POLICY,
 } from "@/data/products";
 import { DeliveryStatusWidget } from "./DeliveryStatusWidget";
 import {
@@ -32,7 +33,6 @@ export function CartDrawer() {
     removeFromCart,
     clearCart,
     totalCount,
-    totalPriceRwf,
     customerName,
     setCustomerName,
     neighborhood,
@@ -42,6 +42,13 @@ export function CartDrawer() {
   } = useCart();
 
   if (!isCartOpen) return null;
+
+  // Calculate confirmed numeric subtotal
+  const confirmedSubtotal = items.reduce(
+    (sum, item) => sum + (item.product.priceRwf > 0 ? item.product.priceRwf * item.quantity : 0),
+    0
+  );
+  const hasUnpricedItems = items.some((item) => !item.product.priceRwf || item.product.priceRwf === 0);
 
   const handleSendOrder = () => {
     if (items.length === 0) return;
@@ -159,8 +166,15 @@ export function CartDrawer() {
                       <p className="text-[11px] text-[#57524C] truncate mt-0.5">
                         Variant: <strong className="text-[#141413]">{item.variant.name}</strong>
                       </p>
+                      {item.product.dimensions && (
+                        <p className="text-[10px] font-mono text-[#1B3B2B] truncate mt-0.5 font-bold">
+                          📏 {item.product.dimensions}
+                        </p>
+                      )}
                       <p className="text-xs font-extrabold text-[#141413] mt-1 font-sans">
-                        {formatRwf(item.product.priceRwf * item.quantity)}
+                        {item.product.priceRwf > 0
+                          ? formatRwf(item.product.priceRwf * item.quantity)
+                          : "Price on Request"}
                       </p>
                     </div>
 
@@ -263,25 +277,30 @@ export function CartDrawer() {
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between text-[#57524C]">
                   <span>Items Subtotal</span>
-                  <span className="font-semibold text-[#141413]">{formatRwf(totalPriceRwf)}</span>
+                  <span className="font-semibold text-[#141413]">
+                    {confirmedSubtotal > 0
+                      ? `${formatRwf(confirmedSubtotal)}${hasUnpricedItems ? " (+ items on request)" : ""}`
+                      : "Price on Request"}
+                  </span>
                 </div>
                 <div className="flex justify-between text-[#57524C]">
-                  <span>Kigali Courier Coordination</span>
-                  <span className="text-[#1B3B2B] font-semibold">Standard City Rate (MoMo)</span>
+                  <span>Delivery Fee</span>
+                  <span className="text-[#1B3B2B] font-semibold text-[11px]">
+                    To be communicated for {neighborhood || "your location"}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm font-extrabold text-[#141413] pt-2 border-t border-[#1B3B2B]/10">
-                  <span>Total Estimate</span>
+                  <span>Subtotal</span>
                   <span className="text-[#C86D51] font-sans text-lg">
-                    {formatRwf(totalPriceRwf)}
+                    {confirmedSubtotal > 0 ? formatRwf(confirmedSubtotal) : "Price on Request"}
                   </span>
                 </div>
               </div>
 
-              {/* Mon/Tue/Fri/Sat Reminder */}
-              <p className="text-[10px] text-[#57524C] text-center leading-tight">
-                🌿 Deliveries run on <strong>Mon, Tue, Fri & Sat</strong> (within 4 operating days).
-                No card required — coordinate directly on WhatsApp.
-              </p>
+              {/* Explicit Location-Based Delivery Policy Notice */}
+              <div className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#1B3B2B]/10 text-[10px] text-[#57524C] leading-snug">
+                {LOCATION_DELIVERY_POLICY}
+              </div>
 
               {/* Master WhatsApp Checkout Button */}
               <button

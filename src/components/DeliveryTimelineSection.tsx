@@ -12,7 +12,11 @@ import {
   Sparkles,
   MapPin,
 } from "lucide-react";
-import { getCatDeliveryStatus, DeliveryStatusInfo } from "@/data/products";
+import {
+  getCatDeliveryStatus,
+  DeliveryStatusInfo,
+  LOCATION_DELIVERY_POLICY,
+} from "@/data/products";
 
 export function DeliveryTimelineSection() {
   const [currentStatus, setCurrentStatus] = useState<DeliveryStatusInfo | null>(null);
@@ -33,7 +37,7 @@ export function DeliveryTimelineSection() {
       title: "Place Order via WhatsApp",
       subtitle: "Instant Concierge Response",
       description:
-        "Tap 'Buy on WA' or submit your curated shopping bag. Our Kigali studio immediately confirms stock and clarifies dimensions, colors, or mounting queries.",
+        "Tap 'Buy on WA' or submit your curated shopping bag. Our Kigali studio immediately confirms stock, notes your neighborhood, and communicates your specific delivery fee.",
     },
     {
       step: "02",
@@ -198,7 +202,7 @@ export function DeliveryTimelineSection() {
             </div>
           </div>
 
-          {/* Right: Kigali Coverage & Delivery Guarantee */}
+          {/* Right: Kigali Coverage & Location Policy */}
           <div className="lg:col-span-5 bg-[#FAF7F2] rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4 border border-[#1B3B2B]/10">
             <div className="space-y-2">
               <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1B3B2B]">
@@ -236,9 +240,17 @@ export function DeliveryTimelineSection() {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[#1B3B2B]/10 flex items-center gap-2 text-xs text-[#1B3B2B] font-semibold">
-              <CheckCircle2 className="w-4 h-4 text-[#C86D51] shrink-0" />
-              <span>MoMo payment upon arrival after inspecting items</span>
+            {/* Explicit Policy Notice */}
+            <div className="pt-3 border-t border-[#1B3B2B]/10 space-y-2">
+              <div className="p-3 rounded-xl bg-[#EFECE6] border border-[#1B3B2B]/10 text-xs text-[#141413] leading-relaxed">
+                <strong className="text-[#1B3B2B] font-semibold">Delivery Policy:</strong>{" "}
+                {LOCATION_DELIVERY_POLICY}
+              </div>
+
+              <div className="flex items-center gap-2 text-xs text-[#1B3B2B] font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-[#C86D51] shrink-0" />
+                <span>MoMo payment upon arrival after inspecting items</span>
+              </div>
             </div>
           </div>
         </div>

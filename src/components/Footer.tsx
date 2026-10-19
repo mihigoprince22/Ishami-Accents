@@ -15,6 +15,7 @@ import {
   WHATSAPP_DISPLAY_PHONE,
   WHATSAPP_PHONE_NUMBER,
   INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
   TIKTOK_HANDLE,
   PARENT_BRAND_URL,
 } from "@/data/products";
@@ -120,7 +121,7 @@ export function Footer() {
 
               <li>
                 <a
-                  href={`https://instagram.com/${INSTAGRAM_HANDLE.replace("@", "")}`}
+                  href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-white/85 hover:text-[#C86D51] transition-colors"

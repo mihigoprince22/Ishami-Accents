@@ -2,7 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-import { ROOM_BUNDLES, RoomBundle, formatRwf, generateBundleWhatsAppLink } from "@/data/products";
+import {
+  ROOM_BUNDLES,
+  RoomBundle,
+  formatRwf,
+  generateBundleWhatsAppLink,
+  LOCATION_DELIVERY_POLICY,
+} from "@/data/products";
 import { Sparkles, MessageCircle, Check, ArrowRight } from "lucide-react";
 
 export function RoomBundlesSection() {
@@ -20,8 +26,7 @@ export function RoomBundlesSection() {
           </h2>
           <p className="text-sm sm:text-base text-[#57524C] leading-relaxed font-light">
             Designed by Ishami Interior Design to elevate living spaces with harmonious textures.
-            Enjoy curated styling and bundled savings with instant one-click WhatsApp dispatch across
-            Kigali.
+            Enjoy curated styling with direct WhatsApp dispatch across Kigali.
           </p>
         </div>
 
@@ -74,7 +79,7 @@ export function RoomBundlesSection() {
 
                   {/* Body Content */}
                   <div className="p-5 sm:p-6 space-y-4">
-                    <p className="text-xs sm:text-sm text-[#57524C] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#57524C] leading-relaxed font-light">
                       {bundle.description}
                     </p>
 
@@ -96,7 +101,7 @@ export function RoomBundlesSection() {
                     </div>
 
                     {/* Designer Tip Pill */}
-                    <div className="p-3 rounded-2xl bg-[#EFECE6]/90 border border-[#1B3B2B]/10 text-xs text-[#141413] leading-relaxed">
+                    <div className="p-3 rounded-2xl bg-[#EFECE6]/90 border border-[#1B3B2B]/10 text-xs text-[#141413] leading-relaxed font-light">
                       <strong className="text-[#1B3B2B] font-semibold">Designer Styling:</strong>{" "}
                       {bundle.designerTip}
                     </div>
@@ -112,17 +117,25 @@ export function RoomBundlesSection() {
                       </span>
                       <div className="flex items-baseline gap-2">
                         <span className="font-sans text-2xl font-extrabold text-[#1B3B2B]">
-                          {formatRwf(bundle.priceRwf)}
+                          {bundle.priceRwf > 0 ? formatRwf(bundle.priceRwf) : "Price on Request"}
                         </span>
-                        <span className="text-xs text-[#8A847C] line-through">
-                          {formatRwf(bundle.originalPriceRwf)}
-                        </span>
+                        {bundle.originalPriceRwf && bundle.originalPriceRwf > 0 && (
+                          <span className="text-xs text-[#8A847C] line-through font-sans">
+                            {formatRwf(bundle.originalPriceRwf)}
+                          </span>
+                        )}
                       </div>
                     </div>
 
-                    <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-full">
-                      Save {formatRwf(bundle.savingsRwf)}
-                    </span>
+                    {bundle.savingsRwf && bundle.savingsRwf > 0 ? (
+                      <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-full">
+                        Save {formatRwf(bundle.savingsRwf)}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-mono font-semibold text-[#1B3B2B] bg-[#EFECE6] px-2 py-0.5 rounded-md border border-[#1B3B2B]/10">
+                        Inquire
+                      </span>
+                    )}
                   </div>
 
                   {/* One-Click WhatsApp Bundle Order Button */}
@@ -136,6 +149,11 @@ export function RoomBundlesSection() {
                     <span>Order Bundle on WhatsApp</span>
                     <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" />
                   </a>
+
+                  {/* Delivery Notice */}
+                  <p className="text-[10px] text-[#57524C] text-center leading-tight mt-2.5 font-light">
+                    {LOCATION_DELIVERY_POLICY}
+                  </p>
                 </div>
               </div>
             );
